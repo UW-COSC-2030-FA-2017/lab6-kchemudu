@@ -1,6 +1,6 @@
 // SortedDriver.cpp
-
-// tom bailey   1445  25 mar 2014
+// Krishna Sai Chemudupati
+// 10/30/2017
 // Construct sorted sequences and call functions that 
 //   process the sorted sequences.
 
@@ -12,6 +12,7 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <cmath>
 
 
 using namespace std;
@@ -63,8 +64,42 @@ getWords(size_t numWords, size_t wordLength, string alphabet)
 double
 mostIsolated(vector<double> & number)
 {
-	// STUB  STUB  STUB
-	return -123.456;
+	double maxmindistance = 0;
+	int indexOfMostIso = 0;
+	int i = 0;
+	while (i < number.size())
+	{
+		/*cout << endl;
+		cout << "i: " << i << endl;*/
+		double tmp = number.at(i);
+		int counter = 0;
+		int j = i-1;
+		double mindistance = 0;
+		while (j < i+2)
+		{
+			if (i != j && j>=0 && j < number.size())
+			{
+				/*cout << "diff :" << abs(temp.at(j) - tmp) << endl;*/
+				if ((mindistance > abs(number.at(j) - tmp)) || counter == 0)
+				{
+					mindistance = abs(number.at(j) - tmp);
+				}
+				counter++;
+			}
+			/*cout << "mindistance: " << mindistance << endl;
+			cout << "maxmindistance: " << maxmindistance << endl;
+			cout << "index: " << indexOfMostIso << endl;*/
+			j++;
+		}
+		if (mindistance > maxmindistance)
+		{
+			maxmindistance = mindistance;
+			indexOfMostIso = i;
+		}
+		i++;
+	}
+
+	return number.at(indexOfMostIso);
 }
 
 
@@ -74,8 +109,26 @@ mostIsolated(vector<double> & number)
 int
 unmatched(list<string> & A, list<string> & B)
 {
-	// STUB  STUB  STUB
-	return -1;
+	string a = "";
+	string b="";
+	int counter = 0;
+	std::list<string>::const_iterator itr = B.begin();
+	while (itr != B.end())
+	{
+		b.append(" ").append(*itr);
+		itr++;
+	}
+	std::list<string>::const_iterator itr1 = A.begin();
+	while (itr1 != A.end())
+	{
+		a = *itr1;
+		if (b.find(a) == string::npos)
+		{
+			counter++;
+		}
+		itr1++;
+	}
+	return counter;
 }
 
 
